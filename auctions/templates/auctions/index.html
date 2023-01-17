@@ -1,0 +1,16 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+
+    {% for item in auctionListings %} 
+    <div class="card" style="width: 18rem; margin-top: 20px; margin-left: 10px; display: inline-block;">
+        <img src={{item.image_url}} width="500" height="300" class="card-img-top">
+        <div class="card-body">
+        <h5 class="card-title">{{item.title}}  <span class="badge bg-warning">{{item.category}}</span></h5>
+        <p class="card-text">{{item.description}}</p>
+        <a href="{% url 'current_listing' item.id %}" class="btn btn-primary">View ></a>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

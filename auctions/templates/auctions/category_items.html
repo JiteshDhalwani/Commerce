@@ -1,0 +1,15 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+{% for item in items %}
+<div class="card" style="width: 18rem; margin-top: 20px; margin-left: 10px; display: inline-block;">
+    <img src={{item.image_url}} width="500" height="300" class="card-img-top">
+    <div class="card-body">
+    <h5 class="card-title">{{item.title}}</h5>
+    <p class="card-text">{{item.description}}</p>
+    <a href="{% url 'current_listing' item.id %}" class="btn btn-primary">View ></a>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

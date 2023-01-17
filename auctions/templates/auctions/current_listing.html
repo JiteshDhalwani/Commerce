@@ -1,0 +1,74 @@
+{% extends "auctions/layout.html" %} 
+
+{% block body %} 
+<div>
+    <h1 class="item_title">{{ item.title }}</h1>
+    <p><img class="item_image" src="{{ item.image_url }}" width="300" height="300"></p>
+    <p><strong>Description:</strong> {{ item.description }}</p>
+    <p><strong>Starting Bid:</strong> {{ item.starting_bid }}</p>
+    
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'bid' item.id %}">
+        {% csrf_token %}
+        {{ bid_form }}
+        <button type="submit" value="bid" class="btn btn-outline-primary">Submit</button>
+    </form>
+    {% endif %}
+
+    {% for message in messages %}
+
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endif %}
+            
+    {% endfor %}
+
+    {% if message_success %}
+        <div class="alert alert-success" role="alert">
+            {{ message_success }}
+        </div>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'current_listing' item.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-dark">Watchlist</button>
+        <input type="hidden" name="button" value="watchlist">
+    </form>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        {% if creator %}
+            <form method="post" action="{% url 'close' item.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger">Close Listing</button>
+                <input type="hidden" name="closed" value="true">
+            </form>
+        {% endif %}
+    {% endif %}
+
+    {% for comment in comments %}
+    <div class="box">
+        <p>
+            {{ comment.text }}
+        </p>
+        <p>
+            By: <strong>{{ comment.user }}</strong>
+        </p>
+    </div>
+    {% endfor %}
+
+    <form method="post" action="{% url 'comment' item.id %}">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <input type="submit" value="Comment">
+    </form>
+
+</div>
+{% endblock %}

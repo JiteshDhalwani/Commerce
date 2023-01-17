@@ -1,0 +1,44 @@
+body {
+    padding: 10px;
+}
+
+.item_title {
+    text-align: center;
+    color:crimson;
+}
+
+.item_image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+
+.box {
+    height: auto;
+    width: 200px;
+    background-color:white;
+    color: black;
+    padding: 5px;
+    border: solid 3px black;
+}
+
+#category_style {
+    background-color: red;
+    box-shadow: 0 5px 0 darkred;
+    color: white;
+    padding: 1em 1.5em;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  
+#category_style:hover {
+    background-color: #ce0606;
+  }
+  
+#category_style:active {
+    box-shadow: none;
+    top: 5px;
+  }
+  
